@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace:命名空间  用于绑定对应名称的Dao/Mapper接口 -->
+<mapper namespace="com.entropy.dao.UserMapper">
+
+    <!--查询全部信息-->
+    <!--select:查询语句-->
+    <!--resultType="com.entropy.pojo.User":返回类型-->
+    <select id="searchAllUser" resultType="com.entropy.pojo.User">
+        select * from user;
+    </select>
+
+    <!--根据id查询信息-->
+    <select id="searchUserById" parameterType="integer" resultType="com.entropy.pojo.User">
+        select * from user where id = #{id};
+    </select>
+
+    <!--新增用户信息-->
+    <insert id="addUser" parameterType="com.entropy.pojo.User">
+        insert into user (id,name,password) values (#{id},#{name},#{password});
+    </insert>
+
+    <!--修改用户信息-->
+    <update id="updateUser" parameterType="com.entropy.pojo.User">
+        update user set name = #{name},password=#{password} where id=#{id};
+    </update>
+
+    <!--删除用户信息-->
+    <delete id="deleteUser" parameterType="integer">
+        delete from user where id=#{id};
+    </delete>
+
+    <!--根据map新增用户信息-->
+    <insert id="addUserWithMap" parameterType="map">
+        insert into user (id,name,password) values (#{userId},#{username},#{password});
+    </insert>
+
+    <!--模糊查询-->
+    <select id="fuzzySearch" resultType="User">
+        select * from user where name like "%"#{value}"%";
+    </select>
+</mapper>
