@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--configuration: 核心配置文件-->
+<configuration>
+    <!--引入外部配置文件-->
+    <properties resource="db.properties"/>
+
+    <settings>
+        <!--标准的日志工厂实现-->
+<!--        <setting name="logImpl" value="STDOUT_LOGGING"/>-->
+        <!--LOG4J的日志工厂实现-->
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <!--可以给实体类起别名-->
+    <typeAliases>
+        <!--typeAlias能够自定义命名-->
+        <!--<typeAlias type="com.entropy.pojo.User" alias="User"/>-->
+
+        <!--package默认直接以类名作为全限定类命名-->
+        <!--注意name值的范围是包名, 该包名下的类均以类名作为全限定类命名-->
+        <package name="com.entropy.pojo"/>
+    </typeAliases>
+
+    <environments default="development">
+        <environment id="development">
+            <!--transactionManager: 事务管理-->
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <!--每一个Mapper.XML都需要在Mybatis核心配置文件中注册！-->
+    <mappers>
+        <mapper class="com.entropy.dao.UserMapper"/>
+        <mapper class="com.entropy.dao.StudentMapper"/>
+        <mapper class="com.entropy.dao.TeacherMapper"/>
+    </mappers>
+
+<!--    <mappers>-->
+<!--        <package name="com.entropy.dao"/>-->
+<!--    </mappers>-->
+</configuration>

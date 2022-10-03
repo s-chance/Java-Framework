@@ -27,4 +27,10 @@ public interface UserMapper {
 
     //模糊查询
     List<User> fuzzySearch(String value);
+
+    //分页查询
+    List<User> searchWithPage(Map<String, Integer> map);
+
+    //RowBounds分页
+    List<User> searchByRowBounds();
 }

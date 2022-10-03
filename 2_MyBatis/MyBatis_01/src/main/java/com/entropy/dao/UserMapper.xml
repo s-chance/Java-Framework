@@ -41,4 +41,20 @@
     <select id="fuzzySearch" resultType="User">
         select * from user where name like "%"#{value}"%";
     </select>
+
+    <!--分页查询-->
+    <resultMap id="UserMap" type="User">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+    </resultMap>
+
+    <select id="searchWithPage" parameterType="map" resultMap="UserMap">
+        select * from user limit #{startIndex},#{pageSize};
+    </select>
+
+    <!--RowBounds分页-->
+    <select id="searchByRowBounds" resultMap="UserMap">
+        select * from user;
+    </select>
 </mapper>

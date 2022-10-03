@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entropy.dao.StudentMapper">
+    <!--查询全部信息, 按照查询嵌套处理-->
+    <select id="getStudents" resultMap="StudentMap">
+        select * from student;
+    </select>
+
+    <resultMap id="StudentMap" type="Student">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+
+        <!--处理引用类型-->
+        <!--association表示对象-->
+        <!--javaType指定属性的类型-->
+        <association property="teacher" column="teacher_id" javaType="Teacher" select="getTeacher"/>
+    </resultMap>
+
+    <select id="getTeacher" resultType="Teacher">
+        select * from teacher where id=#{teacher_id};
+    </select>
+
+    <!--查询全部信息, 按照结果嵌套处理-->
+    <select id="getResult" resultMap="Result">
+        select s.id sid,s.name student,t.name teacher,t.id
+        from student s,teacher t
+        where s.teacher_id=t.id;
+    </select>
+
+    <resultMap id="Result" type="Student">
+        <result column="sid" property="id"/>
+        <result column="student" property="name"/>
+        <association property="teacher" javaType="Teacher">
+            <result column="id" property="id"/>
+            <result column="teacher" property="name"/>
+        </association>
+    </resultMap>
+</mapper>

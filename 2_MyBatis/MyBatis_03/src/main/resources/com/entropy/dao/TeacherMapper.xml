@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entropy.dao.TeacherMapper">
+
+    <!--按照结果嵌套查询-->
+    <select id="getTeacherResultById" resultMap="TeacherMap">
+        select s.id sid,s.name student,t.name teacher,t.id tid
+        from student s,teacher t
+        where s.teacher_id=t.id and t.id=#{id};
+    </select>
+
+    <resultMap id="TeacherMap" type="Teacher">
+        <result column="tid" property="id"/>
+        <result column="teacher" property="name"/>
+
+        <!--处理引用类型-->
+        <!--collection表示集合-->
+        <!--ofType指定集合的泛型-->
+        <collection property="students" ofType="Student">
+            <result column="sid" property="id"/>
+            <result column="student" property="name"/>
+        </collection>
+    </resultMap>
+
+    <!--按照查询嵌套处理-->
+    <select id="getTeacherQueryById" resultMap="QueryMap">
+        select * from teacher where id=#{id};
+    </select>
+
+    <resultMap id="QueryMap" type="Teacher">
+        <collection property="students" javaType="ArrayList" ofType="Student" select="QueryStudent" column="id"/>
+    </resultMap>
+    
+    <select id="QueryStudent" resultType="Student">
+        select * from student where teacher_id=#{id};
+    </select>
+</mapper>

@@ -3,6 +3,7 @@ package com.entropy;
 import com.entropy.dao.UserMapper;
 import com.entropy.pojo.User;
 import com.entropy.utils.MyBatisUtils;
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -131,11 +132,45 @@ public class DaoTest {
         sqlSession.close();
     }
 
-    static Logger logger = Logger.getLogger(DaoTest.class);
-
-    //日志输出测试
+    //分页查询
     @Test
     public void test08() {
+        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+
+        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+
+        Map<String, Integer> map = new HashMap();
+        map.put("startIndex", 0);
+        map.put("pageSize", 2);
+
+        List<User> list = userMapper.searchWithPage(map);
+        for (User user : list) {
+            System.out.println(user);
+        }
+
+        sqlSession.close();
+    }
+
+    //RowBounds分页
+    @Test
+    public void test09() {
+        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+
+        //创建RowBounds
+        RowBounds rowBounds = new RowBounds(1, 2);
+
+        //在java代码层面实现分页
+        List<User> list = sqlSession.selectList("com.entropy.dao.UserMapper.searchByRowBounds", null, rowBounds);
+        for (User user : list) {
+            System.out.println(user);
+        }
+
+        sqlSession.close();
+    }
+    //日志输出测试
+    static Logger logger = Logger.getLogger(DaoTest.class);
+    @Test
+    public void log() {
         logger.info("level:info");
         logger.debug("level:debug");
         logger.error("level:error");

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entropy.dao.BlogMapper">
+
+    <insert id="addBlog" parameterType="Blog">
+        insert into blog (id,title,author,create_time,views)
+        values (#{id},#{title},#{author},#{createTime},#{views});
+    </insert>
+
+    <!--查询博客-->
+    <!--if标签具有与(and)的逻辑关系-->
+    <select id="getBlogByIf" parameterType="map" resultType="Blog">
+        select * from blog
+        <where>
+            <if test="title != null">
+                title = #{title}
+            </if>
+        </where>
+    </select>
+
+    <!--choose标签相当于switch, when标签相当于case, otherwise标签相当于default-->
+    <select id="getBlogByChoose" parameterType="map" resultType="Blog">
+        select * from blog
+        <where>
+            <choose>
+                <when test="title != null">
+                    title = #{title}
+                </when>
+                <when test="author != null">
+                    and author = #{author}
+                </when>
+                <otherwise>
+                    and views = #{views}
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <!--更新博客-->
+    <!--where标签和set标签类似, 能够自动去除在使用了if标签后留下的一些不需要的关键字-->
+    <!--where标签能够去除if标签判断后留下的多余的and关键字-->
+    <!--set标签能够去除if标签判断后留下的多余的 , 逗号-->
+    <!--trim标签是一个自定义标签, 能够实现自定义where标签和set标签的功能-->
+    <update id="updateBlog" parameterType="map">
+        update blog
+        <set>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="author != null">
+                author = #{author}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--遍历查询-->
+    <select id="getBlogByForeach" parameterType="map" resultType="Blog">
+        select * from blog
+        <where>
+            <foreach collection="views" item="view" open="and (" close=")" separator="or">
+                views=#{view}
+            </foreach>
+        </where>
+    </select>
+
+    <sql id="add">
+        <if test="title != null">
+            title = #{title}
+        </if>
+        <if test="author != null">
+        and author = #{author}
+        </if>
+    </sql>
+
+    <!--在当前Mapper.xml中使用二级缓存-->
+    <!--<cache/>-->
+
+    <!--指定ehcache缓存-->
+    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+</mapper>
