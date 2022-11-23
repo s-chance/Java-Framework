@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--注解式自动装配支持-->
+    <context:annotation-config/>
+    <!--注解式自动装配输入不需要手动实现注入, 但需要在Spring容器中注册-->
+    <bean id="cat" class="com.entropy.pojo.Cat"/>
+    <bean id="dog" class="com.entropy.pojo.Dog"/>
+    <bean id="ownerByAnnotation" class="com.entropy.pojo.Owner"/>
+
+    <!--xml手动配置-->
+    <bean id="owner" class="com.entropy.pojo.Owner">
+        <property name="cat" ref="cat"/>
+        <property name="dog" ref="dog"/>
+        <property name="name" value="petro"/>
+    </bean>
+
+    <!--byName自动装配, 需要注意依赖的bean的id需要与该bean对象的set方法对应-->
+    <bean id="ownerByName" class="com.entropy.pojo.Owner" autowire="byName">
+        <property name="name" value="autoByName"/>
+    </bean>
+
+    <!--byType自动装配, 需要注意对象类型唯一-->
+    <bean id="ownerByType" class="com.entropy.pojo.Owner" autowire="byType">
+        <property name="name" value="autoByType"/>
+    </bean>
+</beans>

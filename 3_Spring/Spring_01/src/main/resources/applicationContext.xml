@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <import resource="beans.xml"/>
+    <import resource="beans2.xml"/>
+
+    <bean id="address" class="com.entropy.pojo.Address">
+        <property name="address" value="countryside"/>
+    </bean>
+
+    <bean id="people" class="com.entropy.pojo.People">
+        <property name="name" value="element"/>
+        <!--address不属于基本数据类型, 需要通过ref的方式注入-->
+        <property name="address" ref="address"/>
+        <!--数组注入-->
+        <property name="books">
+            <array>
+                <value>math</value>
+                <value>English</value>
+                <value>History</value>
+            </array>
+        </property>
+
+        <!--list数组-->
+        <property name="works">
+            <list>
+                <value>music</value>
+                <value>travel</value>
+                <value>fishing</value>
+            </list>
+        </property>
+
+        <!--map-->
+        <property name="cards">
+            <map>
+                <entry key="ID_Card" value="123456789"/>
+                <entry key="Work_Card" value="112233"/>
+            </map>
+        </property>
+
+        <!--set-->
+        <property name="games">
+            <set>
+                <value>escape</value>
+                <value>block</value>
+                <value>speed</value>
+            </set>
+        </property>
+
+        <!--null-->
+        <property name="money">
+            <null/>
+        </property>
+
+        <!--Properties-->
+        <property name="info">
+            <props>
+                <prop key="name">Mike</prop>
+                <prop key="age">22</prop>
+                <prop key="email">123@123.com</prop>
+            </props>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+        https://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <!--注册Bean-->
+    <bean id="userService" class="com.entropy.proxy.service.UserServiceImpl"/>
+    <bean id="beforeLog" class="com.entropy.proxy.service.aop.BeforeLog"/>
+    <bean id="afterLog" class="com.entropy.proxy.service.aop.AfterLog"/>
+
+    <!--方式一: 使用原生Spring API接口-->
+    <!--配置aop, 导入aop的约束-->
+    <aop:config>
+        <!--pointcut切入点, expression="execution(* 全限定类名.*(..))" 固定写法-->
+        <aop:pointcut id="pointcut" expression="execution(* com.entropy.proxy.service.UserServiceImpl.*(..))"/>
+        <!--前置通知加上后置通知相当于环绕通知-->
+        <aop:advisor advice-ref="beforeLog" pointcut-ref="pointcut"/>
+        <aop:advisor advice-ref="afterLog" pointcut-ref="pointcut"/>
+    </aop:config>
+
+    <!--方式二: 自定义类-->
+    <bean id="MyPointcut" class="com.entropy.proxy.service.aop.MyPointcut"/>
+    <aop:config>
+        <!--自定义切面, ref引用自定义类-->
+        <aop:aspect ref="MyPointcut">
+            <!--切入点-->
+            <aop:pointcut id="point" expression="execution(* com.entropy.proxy.service.UserServiceImpl.*(..))"/>
+            <!--通知-->
+            <aop:before method="before" pointcut-ref="point"/>
+            <aop:after method="after" pointcut-ref="point"/>
+        </aop:aspect>
+    </aop:config>
+
+    <!--方式三: 注解式-->
+    <bean id="annotationPointcut" class="com.entropy.proxy.service.aop.AnnotationPointcut"/>
+    <!--开启注解支持-->
+    <aop:aspectj-autoproxy/>
+</beans>

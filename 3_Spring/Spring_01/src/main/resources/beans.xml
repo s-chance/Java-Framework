@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--使用Spring来创建对象, 在Spring中对象称为Bean-->
+
+    <!--id属性: 用于标识单个bean, 类似于变量名-->
+    <!--class属性: 用于定义bean的数据类型, 使用全限定类名-->
+    <!--property标签: 给对象中指定的属性赋值-->
+    <!--注意: property标签中的指定的name属性值在其类中必须存在对应的set方法-->
+    <bean id="user" class="com.entropy.pojo.User">
+        <property name="name" value="Spring"/>
+    </bean>
+
+    <bean id="mysqlImpl" class="com.entropy.dao.Impl.MySQLImpl"/>
+    <bean id="oracleImpl" class="com.entropy.dao.Impl.OracleImpl"/>
+
+    <bean id="userService" class="com.entropy.service.Impl.UserServiceImpl">
+        <!--这里的name属性值在其具体类中必须存在对应的set方法-->
+        <!--value属性的属性值是基本数据类型, 是具体值, 用于直接赋值-->
+        <!--ref属性的属性值是bean类型, 是Spring容器中的对象, 用于在容器中引用另一个bean对象-->
+        <property name="userDao" ref="mysqlImpl"/>
+    </bean>
+
+    <!--有参构造, 通过下标赋值-->
+    <bean name="userConstructorByIndex" class="com.entropy.pojo.User">
+        <constructor-arg index="0" value="index"/>
+    </bean>
+
+    <!--有参构造, 通过类型创建, 不推荐-->
+    <bean name="userConstructorByType" class="com.entropy.pojo.User">
+        <constructor-arg type="java.lang.String" value="type"/>
+    </bean>
+
+    <!--有参构造, 通过参数名创建-->
+    <bean name="userConstructorByName" class="com.entropy.pojo.User">
+        <constructor-arg name="name" value="name"/>
+    </bean>
+
+    <!--取别名-->
+    <alias name="user" alias="user2"/>
+
+    <!--P命名空间注入, 通过set注入-->
+    <bean id="p" class="com.entropy.pojo.User" p:name="point"/>
+    <!--C命名空间注入, 通过构造器construct-args注入-->
+    <bean id="c" class="com.entropy.pojo.User" c:name="construct" scope="prototype"/>
+</beans>

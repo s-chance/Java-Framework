@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entropy.mapper.UserMapper">
+    <select id="queryUser" resultType="user">
+        select * from user
+    </select>
+    
+    <insert id="addUser" parameterType="user">
+        insert into user (id,name,password) values (#{id},#{name},#{password})
+    </insert>
+
+    <!--故意编写错误的delete语句测试事务管理-->
+    <delete id="deleteUser" parameterType="int">
+        delete from user where id = #{id}
+    </delete>
+</mapper>
