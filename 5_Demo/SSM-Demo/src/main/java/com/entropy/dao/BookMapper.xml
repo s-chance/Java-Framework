@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.entropy.dao.BookMapper">
+
+    <!--增加Book-->
+    <insert id="addBook" parameterType="Book">
+        insert into ssm_demo.book(name,counts,detail,price)
+        values (#{name},#{counts},#{detail},#{price})
+    </insert>
+    <!--根据ID删除Book-->
+    <delete id="deleteBookById" parameterType="int">
+        delete from ssm_demo.book where id=#{bookId}
+    </delete>
+    <!--更新Book-->
+    <update id="updateBook" parameterType="Book">
+        update ssm_demo.book set name=#{name},counts=#{counts},detail=#{detail},price=#{price} where id=#{id}
+    </update>
+    <!--根据ID查询Book-->
+    <select id="queryById" resultType="Book">
+        select * from ssm_demo.book where id=#{bookId}
+    </select>
+    <!--查询所有Book-->
+    <select id="queryAll" resultType="Book">
+        select * from ssm_demo.book
+    </select>
+    <!--根据name查询Book-->
+    <select id="queryByName" resultType="Book">
+        select * from ssm_demo.book where name like concat('%',#{bookName},'%')
+    </select>
+</mapper>

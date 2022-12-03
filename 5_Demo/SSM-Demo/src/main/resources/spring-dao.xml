@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--整合MyBatis-->
+    <!--1.关联database.properties-->
+    <context:property-placeholder location="classpath:database.properties"/>
+
+    <!--2.配置数据库连接池-->
+    <!--数据库连接池
+        dbcp 半自动化操作 不能自动连接
+        c3p0 自动化操作(自动加载配置文件并设置到对象里面)
+    -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!--配置连接池属性-->
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!--c3p0连接池私有属性-->
+        <property name="maxPoolSize" value="30"/>
+        <property name="minPoolSize" value="10"/>
+        <!--设置关闭连接后不会自动提交事务-->
+        <property name="autoCommitOnClose" value="false"/>
+        <!--设置获取连接的超时时间-->
+        <property name="checkoutTimeout" value="10000"/>
+        <!--设置获取连接失败的重连次数-->
+        <property name="acquireRetryAttempts" value="2"/>
+    </bean>
+
+    <!--3.配置SqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!--注入数据库连接池-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--关联MyBatis全局配置文件mybatis-config.xml-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!--4.配置扫描dao包, 动态实现dao接口注入Spring容器-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--注入sqlSessionFactory, 注意这里使用的是value而不是ref-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <!--指定扫描包-->
+        <property name="basePackage" value="com.entropy.dao"/>
+    </bean>
+</beans>
