@@ -1,0 +1,55 @@
+server:
+  port: 8081
+
+# 配置热部署
+spring:
+  devtools:
+    restart:
+      enabled: true # 开启热部署
+      additional-paths: src/main/java # 重启目录
+      exclude: WEB-INF/**
+  # thymeleaf和freemarker模板引擎
+  thymeleaf:
+    cache: false # 禁用页面缓存
+  freemarker:
+    cache: false # 禁用页面缓存
+
+# 使用dev或test环境
+#spring:
+#  profiles:
+#    active: dev
+
+# 配置项目的访问路径
+#server:
+#  servlet:
+#    context-path: /entropy
+
+person:
+  name: sky${random.uuid} # 随机uuid
+  age: ${random.int} # 随机int
+  holiday: true
+  birth: 2000/1/1
+  map: {k1: v1, k2: v2}
+  list:
+    - code
+    - music
+    - game
+  cat:
+    name: tomas
+    age: 2
+
+
+# 对象、map写法
+student:
+  name: apple
+  age: 2
+# 行内写法
+teacher: {name: tree,age: 200}
+
+# 数组、list、set写法
+pets:
+  - cat
+  - dog
+  - pig
+# 行内写法
+host: [cat,dog,pig]

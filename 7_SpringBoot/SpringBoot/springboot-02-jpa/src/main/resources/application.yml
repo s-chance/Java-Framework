@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/test
+    hikari:
+      username: root
+      password: root
+  jpa:
+    hibernate:
+      ddl-auto: update # 第一次建表create  后面用update，否则每次重启都会重新建表
+    show-sql: true
