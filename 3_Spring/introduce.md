@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService {
 
 #### IOC本质
 
-**控制反转IOC(Inversion of Control)**, 是一种**设计思想**, **依赖注入DI(Dependency Injection)**是实现IOC的一种方式。在没有控制反转的程序中, 对象的创建与对象间的依赖关系是固定编写的, 由程序本身决定。引入控制反转后, 对象的创建转移给了第三方。
+**控制反转IOC(Inversion of Control)**, 是一种**设计思想**, **依赖注入DI**(Dependency Injection)是实现IOC的一种方式。在没有控制反转的程序中, 对象的创建与对象间的依赖关系是固定编写的, 由程序本身决定。引入控制反转后, 对象的创建转移给了第三方。
 
 **IOC是Spring框架的核心内容**, 可以通过XML配置, 注解配置实现, 最新版的Spring能够零配置实现IOC。采用XML方式配置Bean的时候, Bean的定义信息是和实现分离的, 而采用注解的方式可以把两者合为一体, Bean的定义信息直接以注解的形式定义在实现类中, 从而达到了零配置的目的
 
@@ -263,7 +263,7 @@ public class BeanTest {
 
 对象通过Spring创建, 对象的属性通过Spring容器进行设置。程序本身不再去主动创建对象, 而是由Spring进行注入
 
-依赖注入就是以set方法为原理实现的, 更详细的可以去浏览newClassPathXmlApplicationContext的底层源码
+依赖注入就是以set方法为原理实现的, 更详细的可以去浏览ClassPathXmlApplicationContext的底层源码
 
 #### Spring实现控制反转
 
@@ -962,7 +962,13 @@ public class User {
 
 以**@Component注解**为基础衍生出了其它三个注解
 
-在MVC三层架构中: **@Repository对应dao层**, **@Service对应service层**, **@Controller对应web(controller)层**
+在MVC三层架构中: 
+
+**@Repository对应dao层**
+
+**@Service对应service层**
+
+**@Controller对应web(controller)层**
 
 这三个注解以及@Component注解的功能都是为了将某个类注册到Spring中并装配Bean, 而不需要编写大量的xml配置, 简化xml
 
@@ -1455,7 +1461,7 @@ public class AfterLog implements AfterReturningAdvice {
 
 **关于切入点表达式**
 
-以**execution (* org.example.service.impl..*. *(..))**为例
+以execution (* org.example.service.impl..*. *(..))为例
 
 1、execution(): 表达式主体
 

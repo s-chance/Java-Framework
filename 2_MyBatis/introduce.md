@@ -17,7 +17,8 @@ MyBatis就是一个基于“ORM”的实现操作数据库的框架, 封装了�
 
 **历史信息**
 
-- MyBatis原本是Apache的一个开源项目[iBatis](https://ibatis.apache.org/), 2010年这个项目被Apache Software Foundation迁移到了Google code, 并且更名为MyBatis
+- MyBatis原本是Apache的一个开源项目[iBatis](https://ibatis.apache.org/), 2010年这个项目被Apache Software
+  Foundation迁移到了Google code, 并且更名为MyBatis
 - 2013年11月迁移到[Github](https://github.com/mybatis)
 
 **maven项目获取MyBatis**
@@ -31,7 +32,7 @@ MyBatis就是一个基于“ORM”的实现操作数据库的框架, 封装了�
 </dependency>
 ```
 
- [mybatis – MyBatis 3 | 简介中文文档](https://mybatis.org/mybatis-3/zh/) 
+[mybatis – MyBatis 3 | 简介中文文档](https://mybatis.org/mybatis-3/zh/)
 
 ##### 持久化
 
@@ -62,20 +63,23 @@ MyBatis就是一个基于“ORM”的实现操作数据库的框架, 封装了�
 搭建数据库
 
 ```sql
-create database 2_mybatis;
+create
+database 2_mybatis;
 
-use 2_mybatis;
+use
+2_mybatis;
 
-create table user(
-	id int(20) not null primary key,
-    name varchar(30) default null,
+create table user
+(
+    id       int(20) not null primary key,
+    name     varchar(30) default null,
     password varchar(30) default null
 )engine=InnoDB default charset=utf8;
 
-insert into user(id,name,password) values
-(1,'apple',123),
-(2,'orange',456),
-(3,'grape',789);
+insert into user(id, name, password)
+values (1, 'apple', 123),
+       (2, 'orange', 456),
+       (3, 'grape', 789);
 ```
 
 ##### 创建项目
@@ -88,66 +92,66 @@ insert into user(id,name,password) values
 
 ```xml
 <!--导入依赖-->
-    <dependencies>
-        <!--mysql驱动-->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.47</version>
-        </dependency>
+<dependencies>
+    <!--mysql驱动-->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>5.1.47</version>
+    </dependency>
 
-        <!--mybatis-->
-        <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
-        <dependency>
-            <groupId>org.mybatis</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>3.5.2</version>
-        </dependency>
+    <!--mybatis-->
+    <!-- https://mvnrepository.com/artifact/org.mybatis/mybatis -->
+    <dependency>
+        <groupId>org.mybatis</groupId>
+        <artifactId>mybatis</artifactId>
+        <version>3.5.2</version>
+    </dependency>
 
-        <!--junit-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-        </dependency>
-        
-    </dependencies>
+    <!--junit-->
+    <dependency>
+        <groupId>junit</groupId>
+        <artifactId>junit</artifactId>
+        <version>4.12</version>
+    </dependency>
+
+</dependencies>
 
 
- <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.4.2</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
-            </plugin>
-        </plugins>
+<build>
+<plugins>
+    <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.4.2</version>
+        <configuration>
+            <skipTests>true</skipTests>
+        </configuration>
+    </plugin>
+</plugins>
 </build>
 
-<!--在build中配置resources  来防止我们资源导出失败的问题-->
-    <build>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
-    </build>
+        <!--在build中配置resources  来防止我们资源导出失败的问题-->
+<build>
+<resources>
+    <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+            <include>**/*.properties</include>
+            <include>**/*.xml</include>
+        </includes>
+        <filtering>true</filtering>
+    </resource>
+    <resource>
+        <directory>src/main/java</directory>
+        <includes>
+            <include>**/*.properties</include>
+            <include>**/*.xml</include>
+        </includes>
+        <filtering>true</filtering>
+    </resource>
+</resources>
+</build>
 
 ```
 
@@ -169,7 +173,8 @@ insert into user(id,name,password) values
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <!--如果出现不能连接数据库问题, 设置useSSL=false-->
-                <property name="url" value="jdbc:mysql://localhost:3306/2_mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="url"
+                          value="jdbc:mysql://localhost:3306/2_mybatis?useSSL=true&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
                 <property name="username" value="root"/>
                 <property name="password" value="root"/>
             </dataSource>
@@ -212,21 +217,24 @@ public class MyBatisUtils {
 
 [实现Dao接口的xml文件](MyBatis_01/src/main/java/com/entropy/dao/UserMapper.xml)
 
+> 注意xml中的id字段要和接口中的方法名一一对应
+
 ##### 测试
 
 [测试代码](MyBatis_01/src/test/java/com/entropy/DaoTest.java)
 
 ##### 常见问题
 
-**org.apache.ibatis.binding.BindingException: Type interface com.entropy.dao.UserMapper is not known to the MapperRegistry.**
+**org.apache.ibatis.binding.BindingException: Type interface com.entropy.dao.UserMapper is not known to the
+MapperRegistry.**
 
 未在核心配置文件中注册xml文件, 在[核心配置文件](MyBatis_01/src/main/resources/mybatis-config.xml)中添加以下配置信息即可
 
 ```xml
     <!--每一个Mapper.XML都需要在Mybatis核心配置文件中注册！-->
-    <mappers>
-        <mapper resource="com/entropy/dao/UserMapper.xml"/>
-    </mappers>
+<mappers>
+    <mapper resource="com/entropy/dao/UserMapper.xml"/>
+</mappers>
 ```
 
 **Cause: java.io.IOException: Could not find resource com.entropy.dao.UserMapper.xml**
@@ -234,26 +242,27 @@ public class MyBatisUtils {
 文件未被IDEA识别并导出, 在pom.xml文件(子父模块均可)中配置resources
 
 ```xml
+
 <build>
-        <!--在build中配置resources  防止资源导出失败的问题-->
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-            <resource>
-                <directory>src/main/java</directory>
-                <includes>
-                    <include>**/*.properties</include>
-                    <include>**/*.xml</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+    <!--在build中配置resources  防止资源导出失败的问题-->
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+        <resource>
+            <directory>src/main/java</directory>
+            <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+            </includes>
+            <filtering>true</filtering>
+        </resource>
+    </resources>
 </build>
 ```
 
@@ -301,21 +310,33 @@ public class MyBatisUtils {
 
 mybatis的配置文件包含了mybatis行为的设置和属性信息
 
-配置文件的结构: 
+配置文件的结构:
 
-configuration（配置）
-properties（属性）
-settings（设置）
-typeAliases（类型别名）
-typeHandlers（类型处理器）
-objectFactory（对象工厂）
-plugins（插件）
-environments（环境配置）
-environment（环境变量）
-transactionManager（事务管理器）
-dataSource（数据源）
-databaseIdProvider（数据库厂商标识）
-mappers（映射器）
+- configuration（配置）
+
+- properties（属性）
+
+- settings（设置）
+
+- typeAliases（类型别名）
+
+- typeHandlers（类型处理器）
+
+- objectFactory（对象工厂）
+
+- plugins（插件）
+
+- environments（环境配置）
+
+- environment（环境变量）
+
+- transactionManager（事务管理器）
+
+- dataSource（数据源）
+
+- databaseIdProvider（数据库厂商标识）
+
+- mappers（映射器）
 
 ##### 2.环境配置（environments）
 
@@ -339,22 +360,23 @@ password=root
 核心配置文件引入
 
 ```xml
+
 <properties resource="db.properties">
-  <property name="username" value="root"/>
-  <property name="password" value="root"/>
+    <property name="username" value="root"/>
+    <property name="password" value="root"/>
 </properties>
 
 <environments default="development">
-        <environment id="development">
-            <!--transactionManager: 事务管理-->
-            <transactionManager type="JDBC"/>
-            <dataSource type="POOLED">
-                <property name="driver" value="${driver}"/>
-                <property name="url" value="${url}"/>
-                <property name="username" value="${username}"/>
-                <property name="password" value="${password}"/>
-            </dataSource>
-        </environment>
+<environment id="development">
+    <!--transactionManager: 事务管理-->
+    <transactionManager type="JDBC"/>
+    <dataSource type="POOLED">
+        <property name="driver" value="${driver}"/>
+        <property name="url" value="${url}"/>
+        <property name="username" value="${username}"/>
+        <property name="password" value="${password}"/>
+    </dataSource>
+</environment>
 </environments>
 ```
 
@@ -366,14 +388,14 @@ password=root
 
 ```xml
 <!--可以给实体类起别名-->
-    <typeAliases>
-        <!--typeAlias能够自定义命名-->
-        <!--<typeAlias type="com.entropy.pojo.User" alias="User"/>-->
+<typeAliases>
+    <!--typeAlias能够自定义命名-->
+    <!--<typeAlias type="com.entropy.pojo.User" alias="User"/>-->
 
-        <!--package默认直接以类名作为全限定类命名-->
-        <!--注意name值的范围是包名, 该包名下的类均以类名作为全限定类命名-->
-        <package name="com.entropy.pojo"/>
-    </typeAliases>
+    <!--package默认直接以类名作为全限定类命名-->
+    <!--注意name值的范围是包名, 该包名下的类均以类名作为全限定类命名-->
+    <package name="com.entropy.pojo"/>
+</typeAliases>
 ```
 
 **typeAlias**适合在实体类比较少的情况下使用, **package**适合在实体类比较多的情况下使用
@@ -381,16 +403,21 @@ password=root
 **typeAlias**能够自定义命名, **package**需要自定义命名还需要在对应的实体类上添加注解
 
 ```java
+
 @Alias("user")
-public class User {}
+public class User {
+}
 ```
+
+> 自定义命名是可选的，不是必须的，不自定义命名就默认使用类名
 
 ##### 5.设置（settings）
 
 **相关属性说明**
 
 - **cacheEnabled**: 全局性地开启或关闭所有映射器配置文件中已配置的任何缓存(默认true)
-- **lazyLoadingEnabled**: 延迟加载的全局开关。开启时, 所有关联对象都会延迟加载。特定关联关系中可通过设置`fetchType`属性来覆盖设置(默认false)
+- **lazyLoadingEnabled**: 延迟加载的全局开关。开启时, 所有关联对象都会延迟加载。特定关联关系中可通过设置`fetchType`
+  属性来覆盖设置(默认false)
 - **logImpl**: 指定MyBatis所用日志的具体实现, 未指定时自动查找(常见日志有SLF4J、LOG4J等)
 
 ##### 6.其他配置
@@ -398,31 +425,32 @@ public class User {}
 - [typeHandlers(类型处理器)](https://mybatis.org/mybatis-3/zh/configuration.html#typeHandlers)
 - [objectFactory(对象工厂)](https://mybatis.org/mybatis-3/zh/configuration.html#objectFactory)
 - plugins插件
-  - mybatis-generator-core
-  - mybatis-plus
-  - 通用mapper
+    - mybatis-generator-core
+    - mybatis-plus
+    - 通用mapper
 
 ##### 7.映射器（mappers）
 
 MapperRegistry: 注册并绑定mapper.xml文件
 
-方式一(推荐): 直接绑定xml文件
+方式一: 直接绑定xml文件
 
 ```xml
 <!--每一个Mapper.XML都需要在Mybatis核心配置文件中注册！-->
-    <mappers>
-        <mapper resource="com/entropy/dao/UserMapper.xml"/>
-    </mappers>
+<mappers>
+    <mapper resource="com/entropy/dao/UserMapper.xml"/>
+</mappers>
 ```
 
-注意: 这种方式是以 / 来书写路径的, 不能使用 . 来区分上下级目录
+注意: 这种方式是以 / 来书写路径的, 不能使用 . 来区分上下级目录。xml文件可以放在任意位置，习惯上是放在resources目录下。
 
 方式二: 使用class文件绑定
 
 ```xml
-    <mappers>
-        <mapper class="com.entropy.dao.UserMapper"/>
-    </mappers>
+
+<mappers>
+    <mapper class="com.entropy.dao.UserMapper"/>
+</mappers>
 ```
 
 注意: 使用这种方式请确保接口文件名与xml文件名一致, 并确保接口文件和xml文件处于同一个包下, 否则就无法识别
@@ -430,9 +458,10 @@ MapperRegistry: 注册并绑定mapper.xml文件
 方式三: 扫描包进行注入并绑定
 
 ```xml
-	<mappers>
-        <package name="com.entropy.dao"/>
-    </mappers>
+
+<mappers>
+    <package name="com.entropy.dao"/>
+</mappers>
 ```
 
 注意事项同上面的第二种方式
@@ -463,11 +492,12 @@ MapperRegistry: 注册并绑定mapper.xml文件
 通过修改sql语句实现
 
 ```xml
- <select id="" resultType="">
-     <!--使用as关键字取别名, 别名就是java对象的属性名-->
-     <!--password是数据库字段名, pass是java对象属性名-->
-     select id,name,password as pass from user where id = #{id}
- </select>
+
+<select id="" resultType="">
+    <!--使用as关键字取别名, 别名就是java对象的属性名-->
+    <!--password是数据库字段名, pass是java对象属性名-->
+    select id,name,password as pass from user where id = #{id}
+</select>
 ```
 
 ##### 2.resultMap
@@ -476,17 +506,17 @@ MapperRegistry: 注册并绑定mapper.xml文件
 
 ```xml
  <!--结果集映射-->
-    <resultMap id="UserMap" type="User">
-        <!--column:数据库中的字段, property:实体类中的属性-->
-        <result column="id" property="id"/>
-        <result column="name" property="name"/>
-        <result column="password" property="pass"/>
-    </resultMap>
+<resultMap id="UserMap" type="User">
+    <!--column:数据库中的字段, property:实体类中的属性-->
+    <result column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="password" property="pass"/>
+</resultMap>
 
-<!--根据ID查询用户-->
-    <select id="" resultMap="UserMap">
-        select * from user where id = #{id}
-    </select>
+        <!--根据ID查询用户-->
+<select id="" resultMap="UserMap">
+select * from user where id = #{id}
+</select>
 ```
 
 - **resultMap**在MyBatis中具有很重要的作用
@@ -496,27 +526,28 @@ MapperRegistry: 注册并绑定mapper.xml文件
 
 ##### 日志工厂
 
--  SLF4J 
+- SLF4J
 
--  LOG4J
+- LOG4J
 
--  LOG4J2 
+- LOG4J2
 
--  JDK_LOGGIN: Gjava自带的日志输出
+- JDK_LOGGIN: Gjava自带的日志输出
 
--  COMMONS_LOGGING: 工具包
+- COMMONS_LOGGING: 工具包
 
--  STDOUT_LOGGING: 控制台输出
+- STDOUT_LOGGING: 控制台输出
 
--  NO_LOGGING: 不输出
+- NO_LOGGING: 不输出
 
 ##### 配置日志
 
 在核心配置文件[mybatis-config.xml](MyBatis_01/src/main/resources/mybatis-config.xml)中配置
 
- **STDOUT_LOGGING标准日志输出**
+**STDOUT_LOGGING标准日志输出**
 
 ```xml
+
 <settings>
     <!--标准的日志工厂实现-->
     <setting name="logImpl" value="STDOUT_LOGGING"/>
@@ -525,11 +556,13 @@ MapperRegistry: 注册并绑定mapper.xml文件
 
 **Log4j日志输出**
 
- Log4j是Apache的一个开源项目, 通过使用Log4j可以控制日志信息输送的目的地、每一条日志的输出格式, 通过定义每一条日志信息的级别, 能够更加细致地控制日志的生成过程
+Log4j是Apache的一个开源项目, 通过使用Log4j可以控制日志信息输送的目的地、每一条日志的输出格式, 通过定义每一条日志信息的级别,
+能够更加细致地控制日志的生成过程
 
-1.导入Log4j的依赖
+1.导入Log4j的依赖(存在安全漏洞，建议使用最新版或其他替代)
 
 ```xml
+
 <dependency>
     <groupId>log4j</groupId>
     <artifactId>log4j</artifactId>
@@ -541,25 +574,22 @@ MapperRegistry: 注册并绑定mapper.xml文件
 
 ```properties
 log4j.rootLogger=DEBUG,console,file
-
 #控制台输出的相关设置
 log4j.appender.console=org.apache.log4j.ConsoleAppender
-log4j.appender.console.Target = System.out
+log4j.appender.console.Target=System.out
 log4j.appender.console.Threshold=DEBUG
 log4j.appender.console.layout=org.apache.log4j.PatternLayout
 log4j.appender.stdout.layout.ConversionPattern=[%c] -%m%n
-
 #文件输出的相关设置
 log4j.appender.file=org.apache.log4j.DailyRollingFileAppender
 #输出的log文件的路径, 可在log文件中查看输出信息
 log4j.appender.file.File=./log/entropy.log
-log4j.appender.file.Threshold = DEBUG
+log4j.appender.file.Threshold=DEBUG
 log4j.appender.file.layout=org.apache.log4j.PatternLayout
 log4j.appender.file.layout.ConversionPattern=[%p][%d{yy-MM-dd}][%c]%m%n
-
 #日志输出级别
 log4j.logger.org.mybatis=DEBUG
-log4j.logger.java.sql = DEBUG
+log4j.logger.java.sql=DEBUG
 log4j.logger.java.sql.Statement=DEBUG
 log4j.logger.java.sql.ResultSet=DEBUG
 log4j.logger.java.sql.PreparedStatement=DEBUG
@@ -568,6 +598,7 @@ log4j.logger.java.sql.PreparedStatement=DEBUG
 3.配置日志为Log4j
 
 ```xml
+
 <settings>
     <setting name="logImpl" value="LOG4J"/>
 </settings>
@@ -575,19 +606,17 @@ log4j.logger.java.sql.PreparedStatement=DEBUG
 
 4.直接运行测试代码就能在控制台看到输出信息
 
-
-
 **在类中简易配置log4j**
 
 ```java
 //在需要使用log4j的类中, 导入包 import org.apache.log4j.Logger
 
 //日志对象, 参数为当前类的class
-static Logger logger = Logger.getLogger(DaoTest.class);
+static Logger logger=Logger.getLogger(DaoTest.class);
 //日志级别
-logger.info("level:info");
-logger.debug("level:debug");
-logger.error("level:error");
+        logger.info("level:info");
+        logger.debug("level:debug");
+        logger.error("level:error");
 ```
 
 #### 分页
@@ -599,7 +628,9 @@ logger.error("level:error");
 sql语句
 
 ```mysql
-select * from user limit startIndex,pageSize;
+select *
+from user
+limit startIndex,pageSize;
 ```
 
 在MyBatis中实现: 接口、mapper.xml、测试
@@ -652,29 +683,30 @@ public interface UserMapper {
 在核心配置文件中绑定接口
 
 ```xml
-    <mappers>
-        <mapper class="com.entropy.dao.UserMapper"/>
-    </mappers>
+
+<mappers>
+    <mapper class="com.entropy.dao.UserMapper"/>
+</mappers>
 ```
 
 测试
 
 ```java
 //注解实现查询
-    @Test
-    public void test01() {
-        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+@Test
+public void test01(){
+        SqlSession sqlSession=MyBatisUtils.getSqlSession();
 
-        UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+        UserMapper userMapper=sqlSession.getMapper(UserMapper.class);
 
-        List<User> all = userMapper.getAll();
+        List<User> all=userMapper.getAll();
 
-        for (User user : all) {
-            System.out.println(user);
+        for(User user:all){
+        System.out.println(user);
         }
 
         sqlSession.close();
-    }
+        }
 ```
 
 **本质上是通过底层的反射机制实现, 底层使用了动态代理**
@@ -684,9 +716,9 @@ public interface UserMapper {
 为了方便测试, 在MyBatis工具类中默认开启事务自动提交机制
 
 ```java
-public static SqlSession getSqlSession() {
-    return sqlSessionFactory.openSession(true);
-}
+public static SqlSession getSqlSession(){
+        return sqlSessionFactory.openSession(true);
+        }
 ```
 
 在接口上增加注解
@@ -743,33 +775,45 @@ Lombok能够极大简化冗长的样板式代码(例如构造方法, Getter和Se
 1.测试数据sql语句
 
 ```mysql
-create table teacher(
-	id int(10) not null,
+create table teacher
+(
+    id   int(10) not null,
     name varchar(30) default null,
-    primary key(id)
-)engine=InnoDB default charset=utf8;
+    primary key (id)
+) engine = InnoDB
+  default charset = utf8;
 
-insert into teacher(id,name)values('1','life');
+insert into teacher(id, name)
+values ('1', 'life');
 
-create table student(
-	id int(10) not null,
-    name varchar(30) default null,
-    teacher_id int(10) default null,
-    primary key(id),
-    foreign key(teacher_id) references teacher(id)
-)engine=InnoDB default charset=utf8;
+create table student
+(
+    id         int(10) not null,
+    name       varchar(30) default null,
+    teacher_id int(10)     default null,
+    primary key (id),
+    foreign key (teacher_id) references teacher (id)
+) engine = InnoDB
+  default charset = utf8;
 
-insert into student(id,name,teacher_id) values (1,'happy',1);
-insert into student(id,name,teacher_id) values (2,'worry',1);
-insert into student(id,name,teacher_id) values (3,'sad',1);
-insert into student(id,name,teacher_id) values (4,'angry',1);
-insert into student(id,name,teacher_id) values (5,'belief',1);
-insert into student(id,name,teacher_id) values (6,'friendship',1);
+insert into student(id, name, teacher_id)
+values (1, 'happy', 1);
+insert into student(id, name, teacher_id)
+values (2, 'worry', 1);
+insert into student(id, name, teacher_id)
+values (3, 'sad', 1);
+insert into student(id, name, teacher_id)
+values (4, 'angry', 1);
+insert into student(id, name, teacher_id)
+values (5, 'belief', 1);
+insert into student(id, name, teacher_id)
+values (6, 'friendship', 1);
 ```
 
 2.引入lombok依赖(非必要)
 
 ```xml
+
 <dependency>
     <groupId>org.projectlombok</groupId>
     <artifactId>lombok</artifactId>
@@ -777,11 +821,14 @@ insert into student(id,name,teacher_id) values (6,'friendship',1);
 </dependency>
 ```
 
-3.创建实体类[Teacher](MyBatis_02/src/main/java/com/entropy/pojo/Teacher.java)和[Student](MyBatis_02/src/main/java/com/entropy/pojo/Student.java)
+3.创建实体类[Teacher](MyBatis_02/src/main/java/com/entropy/pojo/Teacher.java)
+和[Student](MyBatis_02/src/main/java/com/entropy/pojo/Student.java)
 
-4.创建接口[TeacherMapper](MyBatis_02/src/main/java/com/entropy/dao/TeacherMapper.java)和[StudentMapper](MyBatis_02/src/main/java/com/entropy/dao/StudentMapper.java)
+4.创建接口[TeacherMapper](MyBatis_02/src/main/java/com/entropy/dao/TeacherMapper.java)
+和[StudentMapper](MyBatis_02/src/main/java/com/entropy/dao/StudentMapper.java)
 
-5.创建xml文件[TeacherMapper.xml](MyBatis_02/src/main/resources/com/entropy/dao/TeacherMapper.xml)和[StudentMapper.xml](MyBatis_02/src/main/resources/com/entropy/dao/StudentMapper.xml)
+5.创建xml文件[TeacherMapper.xml](MyBatis_02/src/main/resources/com/entropy/dao/TeacherMapper.xml)
+和[StudentMapper.xml](MyBatis_02/src/main/resources/com/entropy/dao/StudentMapper.xml)
 
 6.在核心配置文件中扫描包绑定接口
 
@@ -818,13 +865,15 @@ MyBatis支持的动态SQL, 能够根据不同的情况生成不同的SQL语句
 ##### 2.环境搭建
 
 ```mysql
-create table blog(
-	id varchar(50) not null comment '博客id',
-    title varchar(100) not null comment '博客标题',
-    author varchar(30) not null comment '博客作者',
-    create_time datetime not null comment '创建时间',
-    views int(30) not null comment '浏览量'
-)engine=InnoDB default charset=utf8;
+create table blog
+(
+    id          varchar(50)  not null comment '博客id',
+    title       varchar(100) not null comment '博客标题',
+    author      varchar(30)  not null comment '博客作者',
+    create_time datetime     not null comment '创建时间',
+    views       int(30)      not null comment '浏览量'
+) engine = InnoDB
+  default charset = utf8;
 ```
 
 ##### 3.编写配置文件
@@ -879,6 +928,7 @@ create table blog(
 ##### 4.编写实体类
 
 ```java
+
 @Data
 public class Blog {
     private String id;
@@ -898,6 +948,7 @@ public interface BlogMapper {
 
     //查询博客
     List<Blog> getBlogByIf(Map map);
+
     List<Blog> getBlogByChoose(Map map);
 
     //更新博客
@@ -982,7 +1033,7 @@ public interface BlogMapper {
             title = #{title}
         </if>
         <if test="author != null">
-        and author = #{author}
+            and author = #{author}
         </if>
     </sql>
 </mapper>
@@ -1137,16 +1188,18 @@ public class BlogTest {
 **where标签等价的trim标签**
 
 ```xml
+
 <trim prefix="WHERE" prefixOverrides="AND |OR ">
-  ...
+    ...
 </trim>
 ```
 
 **set标签等价的trim标签**
 
 ```xml
+
 <trim prefix="SET" suffixOverrides=",">
-  ...
+    ...
 </trim>
 ```
 
@@ -1156,22 +1209,22 @@ SQL片段是从SQL语句中抽取的公共部分
 
 ```xml
     <!--SQL片段-->
-    <sql id="add">
-        <if test="title != null">
-            title = #{title}
-        </if>
-        <if test="author != null">
+<sql id="add">
+    <if test="title != null">
+        title = #{title}
+    </if>
+    <if test="author != null">
         and author = #{author}
-        </if>
-    </sql>
-    
-    <!--通过include标签引用SQL片段-->
-    <select id="getBlogByIf" parameterType="map" resultType="Blog">
-        select * from blog
-        <where>
-            <include refid="add"/>
-        </where>
-    </select>
+    </if>
+</sql>
+
+        <!--通过include标签引用SQL片段-->
+<select id="getBlogByIf" parameterType="map" resultType="Blog">
+select * from blog
+<where>
+    <include refid="add"/>
+</where>
+</select>
 ```
 
 **注意: SQL片段最好是在单表的基础上进行抽取, 且SQL片段本身不能使用where标签**
@@ -1181,16 +1234,17 @@ SQL片段是从SQL语句中抽取的公共部分
 ##### 1.简介
 
 - 缓存是一种临时存储在内存中的数据
-- 对于需要经常查询的数据, 可以临时存储在内存中, 从内存中进行查询, 而不需要再从磁盘中查询, 能够大大提高查询效率, 解决高并发系统性能问题
-- 使用缓存减少了与数据交互的次数, 减轻系统负担,  提高效率
+- 对于需要经常查询的数据, 可以临时存储在内存中, 从内存中进行查询, 而不需要再从磁盘中查询, 能够大大提高查询效率,
+  解决高并发系统性能问题
+- 使用缓存减少了与数据交互的次数, 减轻系统负担, 提高效率
 - 缓存的数据一般是经常查询但不会频繁修改的数据
 
 ##### 2.MyBatis缓存
 
 - MyBatis框架也提供了缓存的功能, 具有一个强大的查询缓存的特性, 能够自定义配置缓存, 提高效率
 - MyBatis框架中定义了两级缓存: **一级缓存**和**二级缓存**
-  - 默认情况下, 只启用一级缓存, SqlSession级别的缓存, 也称为本地缓存
-  - MyBatis定义了缓存接口Cache, 可以通过Cache接口来定义二级缓存,  Mapper级别的缓存 
+    - 默认情况下, 只启用一级缓存, SqlSession级别的缓存, 也称为本地缓存
+    - MyBatis定义了缓存接口Cache, 可以通过Cache接口来定义二级缓存, Mapper级别的缓存
 
 ##### 3.一级缓存
 
@@ -1199,15 +1253,15 @@ SQL片段是从SQL语句中抽取的公共部分
 
 ```java
     //一级缓存测试
-    @Test
-    public void localCache() {
-        SqlSession sqlSession = MyBatisUtils.getSqlSession();
+@Test
+public void localCache(){
+        SqlSession sqlSession=MyBatisUtils.getSqlSession();
 
-        BlogMapper blogMapper = sqlSession.getMapper(BlogMapper.class);
+        BlogMapper blogMapper=sqlSession.getMapper(BlogMapper.class);
 
-        Map map = new HashMap();
-        map.put("title", "web6.0");
-        List<Blog> blog = blogMapper.getBlogByIf(map);
+        Map map=new HashMap();
+        map.put("title","web6.0");
+        List<Blog> blog=blogMapper.getBlogByIf(map);
 
 //        sqlSession.clearCache(); //清理之后, 下一次相同的查询需要重新查询数据库
 //        System.out.println("手动清理缓存");
@@ -1216,14 +1270,14 @@ SQL片段是从SQL语句中抽取的公共部分
 
         //本地缓存, 一级缓存, 从输出日志中可以看到这里实际上并没有执行SQL语句
         //它的数据是从缓存中获取的
-        List<Blog> localCache = blogMapper.getBlogByIf(map);
+        List<Blog> localCache=blogMapper.getBlogByIf(map);
 
         System.out.println("分割线2......");
 
         System.out.println(blog==localCache); //==比较的是地址, 不是内容
 
         sqlSession.close();
-    }
+        }
 ```
 
 **缓存失效的情况**
@@ -1242,10 +1296,10 @@ SQL片段是从SQL语句中抽取的公共部分
 
 - 工作机制
 
-  - 一次会话查询的数据会先存储在当前会话的一级缓存中
-  - 当前会话关闭后, 如果启用了二级缓存, 则当前会话一级缓存的数据会迁移到二级缓存中
-  - 下一次会话或者另一个SqlSession实例就能从二级缓存中获取数据
-  - 不同的mapper都有各自对应的二级缓存, 但同一个mapper的多个SqlSession实例都能够共享二级缓存数据
+    - 一次会话查询的数据会先存储在当前会话的一级缓存中
+    - 当前会话关闭后, 如果启用了二级缓存, 则当前会话一级缓存的数据会迁移到二级缓存中
+    - 下一次会话或者另一个SqlSession实例就能从二级缓存中获取数据
+    - 不同的mapper都有各自对应的二级缓存, 但同一个mapper的多个SqlSession实例都能够共享二级缓存数据
 
   **二级缓存配置**
 
@@ -1296,7 +1350,8 @@ SQL片段是从SQL语句中抽取的公共部分
   -->
   ```
 
-  **注意: 当需要对缓存的数据进行持久化操作时, 则必须要在实体类实现序列化, 否则会出现Cause: java.io.NotSerializableException的错误**
+  **注意: 当需要对缓存的数据进行持久化操作时, 则必须要在实体类实现序列化, 否则会出现Cause:
+  java.io.NotSerializableException的错误**
 
   实体类实现序列化, 只需要添加`implements Serializable`即可
 
@@ -1343,7 +1398,9 @@ SQL片段是从SQL语句中抽取的公共部分
 **补充**
 
 - **二级缓存是与mapper.xml相对应的, 但复杂查询如果涉及到多表的逻辑关系, 则需要注意相同的数据被多次缓存, 修改数据时只是修改了其中一个缓存**
-- **首次使用二级缓存时, 二级缓存的数据需要先关闭一个会话, 才会存储数据, 即当整个程序运行的生命周期里仅存在一次会话, 二级缓存也就不会发挥任何作用**
+
+- **首次使用二级缓存时, 二级缓存的数据需要先关闭一个会话, 才会存储数据, 即当整个程序运行的生命周期里仅存在一次会话,
+  二级缓存也就不会发挥任何作用**
 - **二级缓存一般用于具有多个会话的开发项目中, 实际上分布式系统项目基本都会存在多个会话**
 
 ##### 5.自定义缓存ehcache
@@ -1357,17 +1414,19 @@ MyBatis框架还提供自定义缓存的功能**ehcache**
 在pom.xml中引入依赖
 
 ```xml
- <dependency>
-      <groupId>org.mybatis.caches</groupId>
-      <artifactId>mybatis-ehcache</artifactId>
-      <version>1.1.0</version>
- </dependency>
+
+<dependency>
+    <groupId>org.mybatis.caches</groupId>
+    <artifactId>mybatis-ehcache</artifactId>
+    <version>1.1.0</version>
+</dependency>
 ```
 
 在mapper.xml中指定ehcache缓存
 
 ```xml
- <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
+
+<cache type="org.mybatis.caches.ehcache.EhcacheCache"/>
 ```
 
 在resources目录下创建并编写ehcache.xml(名称固定)
@@ -1429,28 +1488,28 @@ MyBatis框架还提供自定义缓存的功能**ehcache**
 
 ```java
     //自定义ehcache缓存测试
-    @Test
-    public void ehcache() {
+@Test
+public void ehcache(){
         //创建缓存管理器
-        CacheManager cacheManager = CacheManager.create("./src/main/resources/ehcache.xml");
+        CacheManager cacheManager=CacheManager.create("./src/main/resources/ehcache.xml");
         //获取缓存对象
-        Cache cache = cacheManager.getCache("cloud_user");
+        Cache cache=cacheManager.getCache("cloud_user");
 
         //创建元素
-        SqlSession sqlSession = MyBatisUtils.getSqlSession();
-        BlogMapper blogMapper = sqlSession.getMapper(BlogMapper.class);
-        Map map = new HashMap();
-        map.put("title", "web6.0");
-        List<Blog> blogByIf = blogMapper.getBlogByIf(map);
-        System.out.println("blogByIf = " + blogByIf);
+        SqlSession sqlSession=MyBatisUtils.getSqlSession();
+        BlogMapper blogMapper=sqlSession.getMapper(BlogMapper.class);
+        Map map=new HashMap();
+        map.put("title","web6.0");
+        List<Blog> blogByIf=blogMapper.getBlogByIf(map);
+        System.out.println("blogByIf = "+blogByIf);
         sqlSession.close();
 
-        Element element = new Element("title", blogByIf);
-        
+        Element element=new Element("title",blogByIf);
+
         //将元素添加到缓存
         cache.put(element);
         //获取缓存
-        Element value = cache.get("title");
+        Element value=cache.get("title");
         System.out.println(value);
         System.out.println(value.getObjectValue());
 
@@ -1465,10 +1524,5 @@ MyBatis框架还提供自定义缓存的功能**ehcache**
 
         //关闭缓存管理器
         cacheManager.shutdown();
-    }
+        }
 ```
-
-
-
-
-
